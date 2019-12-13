@@ -25,5 +25,7 @@ define LIBUV_FIXUP_AUTOGEN
 		>$(@D)/m4/libuv-extra-automake-flags.m4
 endef
 LIBUV_POST_PATCH_HOOKS += LIBUV_FIXUP_AUTOGEN
+HOST_LIBUV_POST_PATCH_HOOKS += LIBUV_FIXUP_AUTOGEN
 
 $(eval $(autotools-package))
+$(eval $(host-autotools-package))
