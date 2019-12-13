@@ -24,7 +24,7 @@ CMAKE_LICENSE_FILES = Copyright.txt
 
 CMAKE_DEPENDENCIES = zlib jsoncpp libcurl libarchive expat bzip2 xz libuv rhash
 
-CMAKE_CONF_OPTS = \
+CMAKE_CONF_OPT = \
 	-DKWSYS_LFS_WORKS=TRUE \
 	-DKWSYS_CHAR_IS_SIGNED=TRUE \
 	-DCMAKE_USE_SYSTEM_LIBRARIES=1 \
@@ -41,7 +41,7 @@ define HOST_CMAKE_CONFIGURE_CMDS
 	(cd $(@D); \
 		$(HOST_CONFIGURE_OPTS) \
 		CFLAGS="$(HOST_CMAKE_CFLAGS)" \
-		./bootstrap --prefix=$(HOST_DIR) \
+		./bootstrap --prefix=$(HOST_DIR)/usr \
 			--parallel=$(PARALLEL_JOBS) -- \
 			-DCMAKE_C_FLAGS="$(HOST_CMAKE_CFLAGS)" \
 			-DCMAKE_CXX_FLAGS="$(HOST_CMAKE_CXXFLAGS)" \
@@ -56,7 +56,7 @@ define HOST_CMAKE_BUILD_CMDS
 endef
 
 define HOST_CMAKE_INSTALL_CMDS
-	$(HOST_MAKE_ENV) $(MAKE) -C $(@D) install/fast
+	$(HOST_MAKE_ENV) $(MAKE) -C $(@D) install
 endef
 
 define CMAKE_REMOVE_EXTRA_DATA

@@ -1,0 +1,39 @@
+From 449dc9f62a38400a89e8e9374f397cec8bbc2926 Mon Sep 17 00:00:00 2001
+From: Gleb Mazovetskiy <glex.spb@gmail.com>
+Date: Fri, 13 Dec 2019 10:59:02 +0000
+Subject: [PATCH] GCC v4.9.1 compat
+
+---
+ Source/CTest/cmCTestTestHandler.cxx | 2 +-
+ Source/cmFileCommand.cxx            | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/Source/CTest/cmCTestTestHandler.cxx b/Source/CTest/cmCTestTestHandler.cxx
+index 0ed56c8..b7bd9db 100644
+--- a/Source/CTest/cmCTestTestHandler.cxx
++++ b/Source/CTest/cmCTestTestHandler.cxx
+@@ -545,7 +545,7 @@ int cmCTestTestHandler::ProcessHandler()
+     }
+     cmCTestLog(this->CTest, HANDLER_OUTPUT,
+                std::endl
+-                 << passColorCode << std::lround(percent) << "% tests passed"
++                 << passColorCode << lround(percent) << "% tests passed"
+                  << this->CTest->GetColorCode(cmCTest::Color::CLEAR_COLOR)
+                  << ", " << failedColorCode << failed.size() << " tests failed"
+                  << this->CTest->GetColorCode(cmCTest::Color::CLEAR_COLOR)
+diff --git a/Source/cmFileCommand.cxx b/Source/cmFileCommand.cxx
+index 7a3954e..d332541 100644
+--- a/Source/cmFileCommand.cxx
++++ b/Source/cmFileCommand.cxx
+@@ -1525,7 +1525,7 @@ public:
+     long OldPercentage = this->CurrentPercentage;
+ 
+     if (total > 0.0) {
+-      this->CurrentPercentage = std::lround(value / total * 100.0);
++      this->CurrentPercentage = lround(value / total * 100.0);
+       if (this->CurrentPercentage > 100) {
+         // Avoid extra progress reports for unexpected data beyond total.
+         this->CurrentPercentage = 100;
+-- 
+2.20.1
+
