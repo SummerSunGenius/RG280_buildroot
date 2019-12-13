@@ -190,26 +190,24 @@ $(2)_POST_PATCH_HOOKS += UPDATE_CONFIG_HOOK
 #
 define LIBTOOL_PATCH_HOOK
 	@$$(call MESSAGE,"Patching libtool")
-	$$(Q)if test "$$($$(PKG)_LIBTOOL_PATCH)" = "YES" \
-		-a "$$($$(PKG)_AUTORECONF)" != "YES"; then \
-		for i in `find $$($$(PKG)_SRCDIR) -name ltmain.sh`; do \
-			ltmain_version=`sed -n '/^[ 	]*VERSION=/{s/^[ 	]*VERSION=//;p;q;}' $$$$i | \
-			sed -e 's/\([0-9].[0-9]*\).*/\1/' -e 's/\"//'`; \
-			if test $$$${ltmain_version} = '1.5'; then \
-				support/scripts/apply-patches.sh $$$${i%/*} support/libtool buildroot-libtool-v1.5.patch; \
-			elif test $$$${ltmain_version} = "2.2"; then\
-				support/scripts/apply-patches.sh $$$${i%/*} support/libtool buildroot-libtool-v2.2.patch; \
-			elif test $$$${ltmain_version} = "2.4"; then\
-				support/scripts/apply-patches.sh $$$${i%/*} support/libtool buildroot-libtool-v2.4.patch; \
+	$$(Q)for i in `find $$($$(PKG)_DIR) -name ltmain.sh`; do \
+		ltmain_version=`sed -n '/^[ \t]*VERSION=/{s/^[ \t]*VERSION=//;p;q;}' $$$$i | \
+		sed -e 's/\([0-9]*\.[0-9]*\).*/\1/' -e 's/\"//'`; \
+		ltmain_patchlevel=`sed -n '/^[ \t]*VERSION=/{s/^[ \t]*VERSION=//;p;q;}' $$$$i | \
+		sed -e 's/\([0-9]*\.[0-9]*\.*\)\([0-9]*\).*/\2/' -e 's/\"//'`; \
+		if test $$$${ltmain_version} = '1.5'; then \
+			patch -i support/libtool/buildroot-libtool-v1.5.patch $$$${i}; \
+		elif test $$$${ltmain_version} = "2.2"; then\
+			patch -i support/libtool/buildroot-libtool-v2.2.patch $$$${i}; \
+		elif test $$$${ltmain_version} = "2.4"; then\
+			if test $$$${ltmain_patchlevel:-0} -gt 2; then\
+				patch -i support/libtool/buildroot-libtool-v2.4.4.patch $$$${i}; \
+			else \
+				patch -i support/libtool/buildroot-libtool-v2.4.patch $$$${i}; \
 			fi \
-		done \
-	fi
+		fi \
+	done
 endef
-
-# default values are not evaluated yet, so don't rely on this defaulting to YES
-ifneq ($$($(2)_LIBTOOL_PATCH),NO)
-$(2)_POST_PATCH_HOOKS += LIBTOOL_PATCH_HOOK
-endif
 
 #
 # Hook to gettextize the package if needed
@@ -225,19 +223,6 @@ endef
 define AUTORECONF_HOOK
 	@$$(call MESSAGE,"Autoreconfiguring")
 	$$(Q)cd $$($$(PKG)_SRCDIR) && $$($$(PKG)_AUTORECONF_ENV) $$(AUTORECONF) $$($$(PKG)_AUTORECONF_OPT)
-	$$(Q)if test "$$($$(PKG)_LIBTOOL_PATCH)" = "YES"; then \
-		for i in `find $$($$(PKG)_SRCDIR) -name ltmain.sh`; do \
-			ltmain_version=`sed -n '/^[ 	]*VERSION=/{s/^[ 	]*VERSION=//;p;q;}' $$$$i | \
-			sed -e 's/\([0-9].[0-9]*\).*/\1/' -e 's/\"//'`; \
-			if test $$$${ltmain_version} = "1.5"; then \
-				support/scripts/apply-patches.sh $$$${i%/*} support/libtool buildroot-libtool-v1.5.patch; \
-			elif test $$$${ltmain_version} = "2.2"; then\
-				support/scripts/apply-patches.sh $$$${i%/*} support/libtool buildroot-libtool-v2.2.patch; \
-			elif test $$$${ltmain_version} = "2.4"; then\
-				support/scripts/apply-patches.sh $$$${i%/*} support/libtool buildroot-libtool-v2.4.patch; \
-			fi \
-		done \
-	fi
 endef
 
 # This must be repeated from inner-generic-package, otherwise we get an empty
@@ -250,13 +235,26 @@ $(2)_DEPENDENCIES ?= $$(filter-out host-automake host-autoconf host-libtool \
 endif
 
 ifeq ($$($(2)_AUTORECONF),YES)
+
 # This has to come before autoreconf
 ifeq ($$($(2)_GETTEXTIZE),YES)
 $(2)_PRE_CONFIGURE_HOOKS += GETTEXTIZE_HOOK
 $(2)_DEPENDENCIES += host-gettext
 endif
 $(2)_PRE_CONFIGURE_HOOKS += AUTORECONF_HOOK
+# default values are not evaluated yet, so don't rely on this defaulting to YES
+ifneq ($$($(2)_LIBTOOL_PATCH),NO)
+$(2)_PRE_CONFIGURE_HOOKS += LIBTOOL_PATCH_HOOK
+endif
 $(2)_DEPENDENCIES += host-automake host-autoconf host-libtool
+
+else # ! AUTORECONF = YES
+
+# default values are not evaluated yet, so don't rely on this defaulting to YES
+ifneq ($$($(2)_LIBTOOL_PATCH),NO)
+$(2)_POST_PATCH_HOOKS += LIBTOOL_PATCH_HOOK
+endif
+
 endif
 
 #
