@@ -5,9 +5,9 @@ ROOTFS=output/images/rootfs.squashfs
 MODULES=output/images/modules.squashfs
 
 # create sha1sums
-sha1sum "$KERNEL" | cut -d' ' -f1 > "$KERNEL.sha1"
-sha1sum "$ROOTFS" | cut -d' ' -f1 > "$ROOTFS.sha1"
-sha1sum "$MODULES" | cut -d' ' -f1 > "$MODULES.sha1"
+sha1sum -b "$KERNEL" | cut -d' ' -f1 > "$KERNEL.sha1"
+sha1sum -b "$ROOTFS" | cut -d' ' -f1 > "$ROOTFS.sha1"
+sha1sum -b "$MODULES" | cut -d' ' -f1 > "$MODULES.sha1"
 
 if [ "$KERNEL" -a "$ROOTFS" ] ; then
 	if [ `date -r "$KERNEL" +%s` -gt `date -r "$ROOTFS" +%s` ] ; then

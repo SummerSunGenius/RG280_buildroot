@@ -64,9 +64,9 @@ cp "${MODULES_FS}.sha1" "${MODULES_FS_DEST}.sha1"
 echo ''
 echo 'Verifying checksum of kernel...'
 if [ "$BAR" ] ; then
-	SHA1=`$BAR -w 54 -0 ' ' -n "$KERNEL_DEST" | sha1sum | cut -d' ' -f1`
+	SHA1=`$BAR -w 54 -0 ' ' -n "$KERNEL_DEST" | sha1sum -b | cut -d' ' -f1`
 else
-	SHA1=`sha1sum "$KERNEL_DEST" | cut -d' ' -f1`
+	SHA1=`sha1sum -b "$KERNEL_DEST" | cut -d' ' -f1`
 fi
 
 if [ "$SHA1" != "`cat ${KERNEL_DEST}.sha1`" ] ; then
@@ -77,9 +77,9 @@ fi
 
 echo 'Verifying checksum of root filesystem...'
 if [ "$BAR" ] ; then
-	SHA1=`$BAR -w 54 -0 ' ' -n "$ROOTFS_DEST" | sha1sum | cut -d' ' -f1`
+	SHA1=`$BAR -w 54 -0 ' ' -n "$ROOTFS_DEST" | sha1sum -b | cut -d' ' -f1`
 else
-	SHA1=`sha1sum "$ROOTFS_DEST" | cut -d' ' -f1`
+	SHA1=`sha1sum -b "$ROOTFS_DEST" | cut -d' ' -f1`
 fi
 
 if [ "$SHA1" != "`cat ${ROOTFS_DEST}.sha1`" ] ; then
@@ -90,9 +90,9 @@ fi
 
 echo 'Verifying checksum of modules filesystem...'
 if [ "$BAR" ] ; then
-	SHA1=`$BAR -w 54 -0 ' ' -n "$MODULES_FS_DEST" | sha1sum | cut -d' ' -f1`
+	SHA1=`$BAR -w 54 -0 ' ' -n "$MODULES_FS_DEST" | sha1sum -b | cut -d' ' -f1`
 else
-	SHA1=`sha1sum "$MODULES_FS_DEST" | cut -d' ' -f1`
+	SHA1=`sha1sum -b "$MODULES_FS_DEST" | cut -d' ' -f1`
 fi
 
 if [ "$SHA1" != "`cat ${MODULES_FS_DEST}.sha1`" ] ; then
@@ -103,9 +103,9 @@ fi
 
 echo 'Verifying checksum of bootloader...'
 if [ "$BAR" ] ; then
-	SHA1=`$BAR -w 54 -0 ' ' -n "$BOOTLOADER" | sha1sum | cut -d' ' -f1`
+	SHA1=`$BAR -w 54 -0 ' ' -n "$BOOTLOADER" | sha1sum -b | cut -d' ' -f1`
 else
-	SHA1=`sha1sum "$BOOTLOADER" | cut -d' ' -f1`
+	SHA1=`sha1sum -b "$BOOTLOADER" | cut -d' ' -f1`
 fi
 
 if [ "$SHA1" != "`cat ${BOOTLOADER}.sha1`" ] ; then
@@ -123,9 +123,9 @@ python trimfat.py "${SYSTEM_IMAGE}"
 echo ''
 echo 'Calculating checksum of flash image...'
 if [ "$BAR" ] ; then
-	IMAGE_SHA1=`$BAR -w 54 -0 ' ' -n "${SYSTEM_IMAGE}" | sha1sum | cut -d' ' -f1`
+	IMAGE_SHA1=`$BAR -w 54 -0 ' ' -n "${SYSTEM_IMAGE}" | sha1sum -b | cut -d' ' -f1`
 else
-	IMAGE_SHA1=`sha1sum "${SYSTEM_IMAGE}" | cut -d' ' -f1`
+	IMAGE_SHA1=`sha1sum -b "${SYSTEM_IMAGE}" | cut -d' ' -f1`
 fi
 
 # Flash the image!
@@ -149,11 +149,11 @@ if [ "$BAR" ] ; then
 	SHA1=`head -c $((${NEW_START} * 512 + ${SIZE_BYTES})) ${SYSTEM_DEVICE} \
 		| tail -c +$((${NEW_START} * 512 + 1)) \
 		| $BAR -w 54 -0 ' ' -n -b 512 -s ${SIZE_BYTES} \
-		| sha1sum | cut -d' ' -f1 `
+		| sha1sum -b | cut -d' ' -f1 `
 else
 	SHA1=`head -c $((${NEW_START} * 512 + ${SIZE_BYTES})) ${SYSTEM_DEVICE} \
 		| tail -c +$((${NEW_START} * 512 + 1)) \
-		| sha1sum | cut -d' ' -f1 `
+		| sha1sum -b | cut -d' ' -f1 `
 fi
 
 if [ "$SHA1" != "$IMAGE_SHA1" ] ; then
