@@ -599,6 +599,7 @@ menu "Crypto"
 	source "package/nettle/Config.in"
 	source "package/openssl/Config.in"
 	source "package/polarssl/Config.in"
+	source "package/rhash/Config.in"
 endmenu
 
 menu "Database"
@@ -731,6 +732,7 @@ menu "JSON/XML"
 	source "package/jansson/Config.in"
 	source "package/json-c/Config.in"
 	source "package/json-glib/Config.in"
+	source "package/jsoncpp/Config.in"
 	source "package/libjson/Config.in"
 	source "package/libroxml/Config.in"
 	source "package/libxml2/Config.in"
@@ -906,6 +908,7 @@ menu "Other"
 	source "package/startup-notification/Config.in"
 	source "package/tz/Config.in"
 	source "package/tzdata/Config.in"
+	source "package/uvw/Config.in"
 endmenu
 
 menu "Security"
