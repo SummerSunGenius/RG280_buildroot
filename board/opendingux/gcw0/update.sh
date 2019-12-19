@@ -202,9 +202,9 @@ if [ -f "$ROOTFS" ] ; then
 	if [ -f "$ROOTFS.sha1" ] ; then
 		echo 'Verifying checksum of updated root filesystem...'
 		if [ "$BAR" ] ; then
-			SHA1=`$BAR -w 54 -0 ' ' -n "$ROOTFS_TMP_DEST" | sha1sum | cut -d' ' -f1`
+			SHA1=`$BAR -w 54 -0 ' ' -n "$ROOTFS_TMP_DEST" | sha1sum -b | cut -d' ' -f1`
 		else
-			SHA1=`sha1sum "$ROOTFS_TMP_DEST" | cut -d' ' -f1`
+			SHA1=`sha1sum -b "$ROOTFS_TMP_DEST" | cut -d' ' -f1`
 		fi
 
 		if [ "$SHA1" != "`cat $ROOTFS.sha1`" ] ; then
@@ -219,9 +219,9 @@ if [ -f "$KERNEL" ] ; then
 	if [ -f "$KERNEL.sha1" ] ; then
 		echo 'Verifying checksum of updated kernel...'
 		if [ "$BAR" ] ; then
-			SHA1=`$BAR -w 54 -0 ' ' -n "$KERNEL_TMP_DEST" | sha1sum | cut -d' ' -f1`
+			SHA1=`$BAR -w 54 -0 ' ' -n "$KERNEL_TMP_DEST" | sha1sum -b | cut -d' ' -f1`
 		else
-			SHA1=`sha1sum "$KERNEL_TMP_DEST" | cut -d' ' -f1`
+			SHA1=`sha1sum -b "$KERNEL_TMP_DEST" | cut -d' ' -f1`
 		fi
 
 		if [ "$SHA1" != "`cat $KERNEL.sha1`" ] ; then
@@ -234,9 +234,9 @@ if [ -f "$KERNEL" ] ; then
 	if [ -f "$MODULES_FS.sha1" ] ; then
 		echo 'Verifying checksum of updated modules filesystem...'
 		if [ "$BAR" ] ; then
-			SHA1=`$BAR -w 54 -0 ' ' -n "$MODULES_FS_TMP_DEST" | sha1sum | cut -d' ' -f1`
+			SHA1=`$BAR -w 54 -0 ' ' -n "$MODULES_FS_TMP_DEST" | sha1sum -b | cut -d' ' -f1`
 		else
-			SHA1=`sha1sum "$MODULES_FS_TMP_DEST" | cut -d' ' -f1`
+			SHA1=`sha1sum -b "$MODULES_FS_TMP_DEST" | cut -d' ' -f1`
 		fi
 
 		if [ "$SHA1" != "`cat $MODULES_FS.sha1`" ] ; then
@@ -251,9 +251,9 @@ if [ -f "$BOOTLOADER" ] ; then
 	if [ -f "$BOOTLOADER.sha1" ] ; then
 		echo 'Verifying checksum of updated bootloader...'
 		if [ "$BAR" ] ; then
-			SHA1=`$BAR -w 54 -0 ' ' -n "$BOOTLOADER" | sha1sum | cut -d' ' -f1`
+			SHA1=`$BAR -w 54 -0 ' ' -n "$BOOTLOADER" | sha1sum -b | cut -d' ' -f1`
 		else
-			SHA1=`sha1sum "$BOOTLOADER" | cut -d' ' -f1`
+			SHA1=`sha1sum -b "$BOOTLOADER" | cut -d' ' -f1`
 		fi
 
 		if [ "$SHA1" != "`cat $BOOTLOADER.sha1`" ] ; then
