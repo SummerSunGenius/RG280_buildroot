@@ -4,8 +4,8 @@ comment "Emulators"
 	source "$BR2_EXTERNAL/package/pocketsnes/Config.in"
 
 comment "Frontends"
+	source "$BR2_EXTERNAL/package/esoteric/Config.in"
 	source "$BR2_EXTERNAL/package/gmenu2x/Config.in"
-	source "$BR2_EXTERNAL/package/gmenunx/Config.in"
 
 comment "Games"
 	source "$BR2_EXTERNAL/package/blockattack/Config.in"
