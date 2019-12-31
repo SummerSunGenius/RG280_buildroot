@@ -22,6 +22,7 @@ comment "Libraries"
 	source "$BR2_EXTERNAL/package/utf8cpp/Config.in"
 
 comment "System tools"
+	source "$BR2_EXTERNAL/package/dingux-commander/Config.in"
 	source "$BR2_EXTERNAL/package/od-network-config/Config.in"
 	source "$BR2_EXTERNAL/package/pwswd/Config.in"
 endmenu
