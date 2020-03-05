@@ -15,6 +15,9 @@ LIBPNG_DEPENDENCIES = host-pkgconf zlib
 HOST_LIBPNG_DEPENDENCIES = host-pkgconf host-zlib
 LIBPNG_CONFIG_SCRIPTS = libpng$(LIBPNG_SERIES)-config libpng-config
 
+# Also install older version for binary backwards compatibility
+LIBPNG_DEPENDENCIES += libpng-14
+
 ifeq ($(BR2_ARM_CPU_HAS_NEON),y)
 LIBPNG_CONF_OPT += --enable-arm-neon
 else
