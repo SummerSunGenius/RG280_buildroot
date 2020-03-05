@@ -12,6 +12,9 @@ LIBJPEG_LICENSE_FILES = README
 LIBJPEG_INSTALL_STAGING = YES
 LIBJPEG_PROVIDES = jpeg
 
+# Also install older version for binary backwards compatibility
+LIBJPEG_DEPENDENCIES += libjpeg-8
+
 define LIBJPEG_REMOVE_USELESS_TOOLS
 	rm -f $(addprefix $(TARGET_DIR)/usr/bin/,cjpeg djpeg jpegtran rdjpgcom wrjpgcom)
 endef
