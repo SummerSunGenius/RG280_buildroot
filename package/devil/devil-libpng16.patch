@@ -8,13 +8,13 @@ index 7616e82..4c01754 100644
           [DEVIL_IL_LIB([png.h],
 -                       [png12]) 
 -          AS_IF([test "x$have_png12" = "xno"],
-+                       [png14])
-+          AS_IF([test "x$have_png14" = "xno"],
++                       [png16])
++          AS_IF([test "x$have_png16" = "xno"],
                  [DEVIL_IL_LIB([png.h],
                                [png]) 
                   lib_test_result="$have_png"],
 -                [lib_test_result="$have_png12"]) 
-+                [lib_test_result="$have_png14"])
++                [lib_test_result="$have_png16"])
            AS_IF([test "x$lib_test_result" = "xyes"],
                  [MAYBE_OPTIONAL_DEPENDENCY([IL],
                                             [libpng]) ]) ]) 
