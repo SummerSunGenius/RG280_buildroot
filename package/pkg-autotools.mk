@@ -104,7 +104,7 @@ ifeq ($(4),host)
 endif
 
 $(2)_CONF_ENV			?=
-$(2)_CONF_OPT			?=
+$(2)_CONF_OPTS			?=
 $(2)_MAKE_ENV			?=
 $(2)_MAKE_OPT			?=
 $(2)_INSTALL_OPT                ?= install
@@ -144,7 +144,7 @@ define $(2)_CONFIGURE_CMDS
 		$$(DISABLE_LARGEFILE) \
 		$$(DISABLE_IPV6) \
 		$$(SHARED_STATIC_LIBS_OPTS) \
-		$$(QUIET) $$($$(PKG)_CONF_OPT) \
+		$$(QUIET) $$($$(PKG)_CONF_OPTS) \
 	)
 endef
 else
@@ -169,7 +169,7 @@ define $(2)_CONFIGURE_CMDS
 		--disable-documentation \
 		--with-xmlto=no \
 		--with-fop=no \
-		$$(QUIET) $$($$(PKG)_CONF_OPT) \
+		$$(QUIET) $$($$(PKG)_CONF_OPTS) \
 	)
 endef
 endif

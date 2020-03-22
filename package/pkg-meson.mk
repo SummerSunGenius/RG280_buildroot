@@ -46,7 +46,7 @@ NINJA_OPTS	= $(if $(VERBOSE),-v) -j$(PARALLEL_JOBS)
 define inner-meson-package
 
 $(2)_CONF_ENV		?=
-$(2)_CONF_OPT		?=
+$(2)_CONF_OPTS		?=
 $(2)_NINJA_ENV		?=
 
 #
@@ -85,7 +85,7 @@ define $(2)_CONFIGURE_CMDS
 		--default-library=$(if $(BR2_PREFER_STATIC_LIB),static,shared) \
 		--buildtype=$(if $(BR2_ENABLE_DEBUG),debug,release) \
 		--cross-file=$$($$(PKG)_SRCDIR)/build/cross-compilation.conf \
-		$$($$(PKG)_CONF_OPT) \
+		$$($$(PKG)_CONF_OPTS) \
 		$$($$(PKG)_SRCDIR) $$($$(PKG)_SRCDIR)/build
 endef
 else
@@ -102,7 +102,7 @@ define $(2)_CONFIGURE_CMDS
 		--localstatedir=$$(HOST_DIR)/var \
 		--default-library=shared \
 		--buildtype=release \
-		$$($$(PKG)_CONF_OPT) \
+		$$($$(PKG)_CONF_OPTS) \
 		$$($$(PKG)_SRCDIR) $$($$(PKG)_SRCDIR)/build
 endef
 endif

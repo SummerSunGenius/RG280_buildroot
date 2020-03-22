@@ -24,7 +24,7 @@ CMAKE_LICENSE_FILES = Copyright.txt
 
 CMAKE_DEPENDENCIES = zlib jsoncpp libcurl libarchive expat bzip2 xz libuv rhash
 
-CMAKE_CONF_OPT = \
+CMAKE_CONF_OPTS = \
 	-DKWSYS_LFS_WORKS=TRUE \
 	-DKWSYS_CHAR_IS_SIGNED=TRUE \
 	-DCMAKE_USE_SYSTEM_LIBRARIES=1 \

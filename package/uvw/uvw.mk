@@ -15,6 +15,6 @@ UVW_LICENSE_FILES = LICENSE
 
 # The following CMake variable disables a TRY_RUN call in the -pthread
 # test which is not allowed when cross-compiling (for cmake < 3.10)
-UVW_CONF_OPT = -DTHREADS_PTHREAD_ARG=OFF
+UVW_CONF_OPTS = -DTHREADS_PTHREAD_ARG=OFF
 
 $(eval $(cmake-package))

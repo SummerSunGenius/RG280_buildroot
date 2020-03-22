@@ -11,13 +11,13 @@ LIBSODIUM_LICENSE_FILES = LICENSE
 LIBSODIUM_INSTALL_STAGING = YES
 
 ifeq ($(BR2_TOOLCHAIN_SUPPORTS_PIE),)
-LIBSODIUM_CONF_OPT += --disable-pie
+LIBSODIUM_CONF_OPTS += --disable-pie
 endif
 
 ifeq ($(BR2_PACKAGE_LIBSODIUM_FULL),y)
-LIBSODIUM_CONF_OPT += --disable-minimal
+LIBSODIUM_CONF_OPTS += --disable-minimal
 else
-LIBSODIUM_CONF_OPT += --enable-minimal
+LIBSODIUM_CONF_OPTS += --enable-minimal
 endif
 
 $(eval $(autotools-package))

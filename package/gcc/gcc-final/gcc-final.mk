@@ -48,7 +48,7 @@ define  HOST_GCC_FINAL_CONFIGURE_CMDS
 		--prefix="$(HOST_DIR)/usr" \
 		--sysconfdir="$(HOST_DIR)/etc" \
 		--enable-static \
-		$(QUIET) $(HOST_GCC_FINAL_CONF_OPT) \
+		$(QUIET) $(HOST_GCC_FINAL_CONF_OPTS) \
 	)
 endef
 
@@ -59,18 +59,18 @@ GCC_FINAL_CROSS_LANGUAGES-$(BR2_TOOLCHAIN_BUILDROOT_DLANG) += d
 GCC_FINAL_CROSS_LANGUAGES-$(BR2_TOOLCHAIN_BUILDROOT_FORTRAN) += fortran
 GCC_FINAL_CROSS_LANGUAGES = $(subst $(space),$(comma),$(GCC_FINAL_CROSS_LANGUAGES-y))
 
-HOST_GCC_FINAL_CONF_OPT = \
-	$(HOST_GCC_COMMON_CONF_OPT) \
+HOST_GCC_FINAL_CONF_OPTS = \
+	$(HOST_GCC_COMMON_CONF_OPTS) \
 	--enable-languages=$(GCC_FINAL_CROSS_LANGUAGES) \
 	--with-build-time-tools=$(HOST_DIR)/usr/$(GNU_TARGET_NAME)/bin
 
 # The kernel wants to use the -m4-nofpu option to make sure that it
 # doesn't use floating point operations.
 ifeq ($(BR2_sh4)$(BR2_sh4eb),y)
-HOST_GCC_FINAL_CONF_OPT += "--with-multilib-list=m4,m4-nofpu"
+HOST_GCC_FINAL_CONF_OPTS += "--with-multilib-list=m4,m4-nofpu"
 HOST_GCC_FINAL_GCC_LIB_DIR = $(HOST_DIR)/usr/$(GNU_TARGET_NAME)/lib/!m4*
 else ifeq ($(BR2_sh4a)$(BR2_sh4aeb),y)
-HOST_GCC_FINAL_CONF_OPT += "--with-multilib-list=m4a,m4a-nofpu"
+HOST_GCC_FINAL_CONF_OPTS += "--with-multilib-list=m4a,m4a-nofpu"
 HOST_GCC_FINAL_GCC_LIB_DIR = $(HOST_DIR)/usr/$(GNU_TARGET_NAME)/lib/!m4*
 else
 HOST_GCC_FINAL_GCC_LIB_DIR = $(HOST_DIR)/usr/$(GNU_TARGET_NAME)/lib*
@@ -80,37 +80,37 @@ ifeq ($(BR2_GCC_SUPPORTS_LIBCILKRTS),y)
 
 # libcilkrts does not support v8
 ifeq ($(BR2_sparc),y)
-HOST_GCC_FINAL_CONF_OPT += --disable-libcilkrts
+HOST_GCC_FINAL_CONF_OPTS += --disable-libcilkrts
 endif
 
 # Pthreads are required to build libcilkrts
 ifeq ($(BR2_PTHREADS_NONE),y)
-HOST_GCC_FINAL_CONF_OPT += --disable-libcilkrts
+HOST_GCC_FINAL_CONF_OPTS += --disable-libcilkrts
 endif
 
 ifeq ($(BR2_PREFER_STATIC_LIB),y)
 # disable libcilkrts as there is no static version
-HOST_GCC_FINAL_CONF_OPT += --disable-libcilkrts
+HOST_GCC_FINAL_CONF_OPTS += --disable-libcilkrts
 endif
 
 endif # BR2_GCC_SUPPORTS_LIBCILKRTS
 
 # Disable shared libs like libstdc++ if we do static since it confuses linking
 ifeq ($(BR2_PREFER_STATIC_LIB),y)
-HOST_GCC_FINAL_CONF_OPT += --disable-shared
+HOST_GCC_FINAL_CONF_OPTS += --disable-shared
 else
-HOST_GCC_FINAL_CONF_OPT += --enable-shared
+HOST_GCC_FINAL_CONF_OPTS += --enable-shared
 endif
 
 ifeq ($(BR2_GCC_ENABLE_OPENMP),y)
-HOST_GCC_FINAL_CONF_OPT += --enable-libgomp
+HOST_GCC_FINAL_CONF_OPTS += --enable-libgomp
 else
-HOST_GCC_FINAL_CONF_OPT += --disable-libgomp
+HOST_GCC_FINAL_CONF_OPTS += --disable-libgomp
 endif
 
 # End with user-provided options, so that they can override previously
 # defined options.
-HOST_GCC_FINAL_CONF_OPT += \
+HOST_GCC_FINAL_CONF_OPTS += \
 	$(call qstrip,$(BR2_EXTRA_GCC_CONFIG_OPTIONS))
 
 HOST_GCC_FINAL_CONF_ENV = \

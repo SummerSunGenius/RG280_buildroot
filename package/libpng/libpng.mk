@@ -19,15 +19,15 @@ LIBPNG_CONFIG_SCRIPTS = libpng$(LIBPNG_SERIES)-config libpng-config
 LIBPNG_DEPENDENCIES += libpng-14
 
 ifeq ($(BR2_ARM_CPU_HAS_NEON),y)
-LIBPNG_CONF_OPT += --enable-arm-neon
+LIBPNG_CONF_OPTS += --enable-arm-neon
 else
-LIBPNG_CONF_OPT += --disable-arm-neon
+LIBPNG_CONF_OPTS += --disable-arm-neon
 endif
 
 ifeq ($(BR2_X86_CPU_HAS_SSE2),y)
-LIBPNG_CONF_OPT += --enable-intel-sse
+LIBPNG_CONF_OPTS += --enable-intel-sse
 else
-LIBPNG_CONF_OPT += --disable-intel-sse
+LIBPNG_CONF_OPTS += --disable-intel-sse
 endif
 
 $(eval $(autotools-package))

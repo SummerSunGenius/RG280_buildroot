@@ -15,33 +15,33 @@ FREETYPE_DEPENDENCIES = host-pkgconf
 FREETYPE_CONFIG_SCRIPTS = freetype-config
 
 HOST_FREETYPE_DEPENDENCIES = host-pkgconf
-HOST_FREETYPE_CONF_OPT = --without-zlib --without-bzip2 --without-png
+HOST_FREETYPE_CONF_OPTS = --without-zlib --without-bzip2 --without-png
 
 # since 2.9.1 needed for freetype-config install
-FREETYPE_CONF_OPT += --enable-freetype-config
-HOST_FREETYPE_CONF_OPT += --enable-freetype-config
+FREETYPE_CONF_OPTS += --enable-freetype-config
+HOST_FREETYPE_CONF_OPTS += --enable-freetype-config
 
 ifeq ($(BR2_PACKAGE_ZLIB),y)
 FREETYPE_DEPENDENCIES += zlib
-FREETYPE_CONF_OPT += --with-zlib
+FREETYPE_CONF_OPTS += --with-zlib
 else
-FREETYPE_CONF_OPT += --without-zlib
+FREETYPE_CONF_OPTS += --without-zlib
 endif
 
 ifeq ($(BR2_PACKAGE_BZIP2),y)
 FREETYPE_DEPENDENCIES += bzip2
-FREETYPE_CONF_OPT += --with-bzip2
+FREETYPE_CONF_OPTS += --with-bzip2
 else
-FREETYPE_CONF_OPT += --without-bzip2
+FREETYPE_CONF_OPTS += --without-bzip2
 endif
 
 ifeq ($(BR2_PACKAGE_LIBPNG),y)
 FREETYPE_DEPENDENCIES += libpng
-FREETYPE_CONF_OPT += LIBPNG_CFLAGS="`$(STAGING_DIR)/usr/bin/libpng-config --cflags`" \
+FREETYPE_CONF_OPTS += LIBPNG_CFLAGS="`$(STAGING_DIR)/usr/bin/libpng-config --cflags`" \
 	LIBPNG_LDFLAGS="`$(STAGING_DIR)/usr/bin/libpng-config --ldflags`"
 FREETYPE_LIBPNG_LIBS = "`$(STAGING_DIR)/usr/bin/libpng-config --libs`"
 else
-FREETYPE_CONF_OPT += --without-png
+FREETYPE_CONF_OPTS += --without-png
 endif
 
 # Extra fixing since includedir and libdir are expanded from configure values

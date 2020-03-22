@@ -14,7 +14,7 @@ PYTHON3_LICENSE_FILES = LICENSE
 # This host Python is installed in $(HOST_DIR), as it is needed when
 # cross-compiling third-party Python modules.
 
-HOST_PYTHON3_CONF_OPT += \
+HOST_PYTHON3_CONF_OPTS += \
 	--without-ensurepip \
 	--without-cxx-main \
 	--disable-sqlite3 \
@@ -44,7 +44,7 @@ HOST_PYTHON3_DEPENDENCIES = host-expat host-zlib host-libffi
 ifeq ($(BR2_PACKAGE_HOST_PYTHON3_SSL),y)
 HOST_PYTHON3_DEPENDENCIES += host-openssl
 else
-HOST_PYTHON3_CONF_OPT += --disable-openssl
+HOST_PYTHON3_CONF_OPTS += --disable-openssl
 endif
 
 PYTHON3_INSTALL_STAGING = YES
@@ -52,76 +52,76 @@ PYTHON3_INSTALL_STAGING = YES
 ifeq ($(BR2_PACKAGE_PYTHON3_READLINE),y)
 PYTHON3_DEPENDENCIES += readline
 else
-PYTHON3_CONF_OPT += --disable-readline
+PYTHON3_CONF_OPTS += --disable-readline
 endif
 
 ifeq ($(BR2_PACKAGE_PYTHON3_CURSES),y)
 PYTHON3_DEPENDENCIES += ncurses
 else
-PYTHON3_CONF_OPT += --disable-curses
+PYTHON3_CONF_OPTS += --disable-curses
 endif
 
 ifeq ($(BR2_PACKAGE_PYTHON3_DECIMAL),y)
 PYTHON3_DEPENDENCIES += mpdecimal
-PYTHON3_CONF_OPT += --with-libmpdec=system
+PYTHON3_CONF_OPTS += --with-libmpdec=system
 else
-PYTHON3_CONF_OPT += --with-libmpdec=none
+PYTHON3_CONF_OPTS += --with-libmpdec=none
 endif
 
 ifeq ($(BR2_PACKAGE_PYTHON3_PYEXPAT),y)
 PYTHON3_DEPENDENCIES += expat
-PYTHON3_CONF_OPT += --with-expat=system
+PYTHON3_CONF_OPTS += --with-expat=system
 else
-PYTHON3_CONF_OPT += --with-expat=none
+PYTHON3_CONF_OPTS += --with-expat=none
 endif
 
 ifeq ($(BR2_PACKAGE_PYTHON3_SQLITE),y)
 PYTHON3_DEPENDENCIES += sqlite
 else
-PYTHON3_CONF_OPT += --disable-sqlite3
+PYTHON3_CONF_OPTS += --disable-sqlite3
 endif
 
 ifeq ($(BR2_PACKAGE_PYTHON3_SSL),y)
 PYTHON3_DEPENDENCIES += openssl
 else
-PYTHON3_CONF_OPT += --disable-openssl
+PYTHON3_CONF_OPTS += --disable-openssl
 endif
 
 ifneq ($(BR2_PACKAGE_PYTHON3_CODECSCJK),y)
-PYTHON3_CONF_OPT += --disable-codecs-cjk
+PYTHON3_CONF_OPTS += --disable-codecs-cjk
 endif
 
 ifneq ($(BR2_PACKAGE_PYTHON3_UNICODEDATA),y)
-PYTHON3_CONF_OPT += --disable-unicodedata
+PYTHON3_CONF_OPTS += --disable-unicodedata
 endif
 
 # Disable auto-detection of uuid.h (util-linux)
 # which would add _uuid module support, instead
 # default to the pure python implementation
-PYTHON3_CONF_OPT += --disable-uuid
+PYTHON3_CONF_OPTS += --disable-uuid
 
 ifeq ($(BR2_PACKAGE_PYTHON3_BZIP2),y)
 PYTHON3_DEPENDENCIES += bzip2
 else
-PYTHON3_CONF_OPT += --disable-bzip2
+PYTHON3_CONF_OPTS += --disable-bzip2
 endif
 
 ifeq ($(BR2_PACKAGE_PYTHON3_XZ),y)
 PYTHON3_DEPENDENCIES += xz
 else
-PYTHON3_CONF_OPT += --disable-xz
+PYTHON3_CONF_OPTS += --disable-xz
 endif
 
 ifeq ($(BR2_PACKAGE_PYTHON3_ZLIB),y)
 PYTHON3_DEPENDENCIES += zlib
 else
-PYTHON3_CONF_OPT += --disable-zlib
+PYTHON3_CONF_OPTS += --disable-zlib
 endif
 
 ifeq ($(BR2_PACKAGE_PYTHON3_OSSAUDIODEV),y)
-PYTHON3_CONF_OPT += --enable-ossaudiodev
+PYTHON3_CONF_OPTS += --enable-ossaudiodev
 else
-PYTHON3_CONF_OPT += --disable-ossaudiodev
+PYTHON3_CONF_OPTS += --disable-ossaudiodev
 endif
 
 # Make python believe we don't have 'hg', so that it doesn't try to
@@ -146,7 +146,7 @@ ifeq ($(BR2_TOOLCHAIN_USES_UCLIBC),y)
 PYTHON3_CONF_ENV += ac_cv_func_wcsftime=no
 endif
 
-PYTHON3_CONF_OPT += \
+PYTHON3_CONF_OPTS += \
 	--without-ensurepip \
 	--without-cxx-main \
 	--with-system-ffi \
