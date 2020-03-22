@@ -30,7 +30,7 @@ NCURSES_CONF_OPTS = \
 	$(if $(BR2_PACKAGE_NCURSES_TARGET_PROGS),,--without-progs) \
 	--without-manpages
 
-ifeq ($(BR2_PREFER_STATIC_LIB),y)
+ifeq ($(BR2_STATIC_LIBS),y)
 NCURSES_CONF_OPTS += --without-shared --with-normal
 else
 NCURSES_CONF_OPTS += --with-shared --without-normal
@@ -101,7 +101,7 @@ endef
 NCURSES_LINK_STAGING_CONFIG = $(call NCURSES_LINK_CONFIG)
 
 NCURSES_LINK_STAGING_LIBS = \
-	$(if $(BR2_PREFER_STATIC_LIB),$(call NCURSES_LINK_LIBS_STATIC),$(call NCURSES_LINK_LIBS_SHARED))
+	$(if $(BR2_STATIC_LIBS),$(call NCURSES_LINK_LIBS_STATIC),$(call NCURSES_LINK_LIBS_SHARED))
 
 NCURSES_LINK_STAGING_PC = $(call NCURSES_LINK_PC)
 

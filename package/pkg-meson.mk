@@ -82,7 +82,7 @@ define $(2)_CONFIGURE_CMDS
 	PATH=$$(BR_PATH) $$($$(PKG)_CONF_ENV) $$(MESON) \
 		--prefix=/usr \
 		--libdir=lib \
-		--default-library=$(if $(BR2_PREFER_STATIC_LIB),static,shared) \
+		--default-library=$(if $(BR2_STATIC_LIBS),static,shared) \
 		--buildtype=$(if $(BR2_ENABLE_DEBUG),debug,release) \
 		--cross-file=$$($$(PKG)_SRCDIR)/build/cross-compilation.conf \
 		$$($$(PKG)_CONF_OPTS) \

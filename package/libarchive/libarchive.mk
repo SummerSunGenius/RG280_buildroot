@@ -11,7 +11,7 @@ LIBARCHIVE_LICENSE = BSD-2-Clause, BSD-3-Clause, CC0-1.0, OpenSSL, Apache-2.0
 LIBARCHIVE_LICENSE_FILES = COPYING
 
 ifeq ($(BR2_PACKAGE_LIBARCHIVE_BSDTAR),y)
-ifeq ($(BR2_PREFER_STATIC_LIB),y)
+ifeq ($(BR2_STATIC_LIBS),y)
 LIBARCHIVE_CONF_OPTS += --enable-bsdtar=static
 else
 LIBARCHIVE_CONF_OPTS += --enable-bsdtar=shared
@@ -21,7 +21,7 @@ LIBARCHIVE_CONF_OPTS += --disable-bsdtar
 endif
 
 ifeq ($(BR2_PACKAGE_LIBARCHIVE_BSDCPIO),y)
-ifeq ($(BR2_PREFER_STATIC_LIB),y)
+ifeq ($(BR2_STATIC_LIBS),y)
 LIBARCHIVE_CONF_OPTS += --enable-bsdcpio=static
 else
 LIBARCHIVE_CONF_OPTS += --enable-bsdcpio=shared
@@ -31,7 +31,7 @@ LIBARCHIVE_CONF_OPTS += --disable-bsdcpio
 endif
 
 ifeq ($(BR2_PACKAGE_LIBARCHIVE_BSDCAT),y)
-ifeq ($(BR2_PREFER_STATIC_LIB),y)
+ifeq ($(BR2_STATIC_LIBS),y)
 LIBARCHIVE_CONF_OPTS += --enable-bsdcat=static
 else
 LIBARCHIVE_CONF_OPTS += --enable-bsdcat=shared

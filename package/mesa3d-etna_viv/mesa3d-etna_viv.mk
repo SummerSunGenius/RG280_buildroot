@@ -22,7 +22,7 @@ MESA3D_ETNA_VIV_CONF_OPTS = \
 	--enable-dri --with-dri-drivers= \
 	--with-gallium-drivers=swrast,etna
 
-ifeq ($(BR2_PREFER_STATIC_LIB),y)
+ifeq ($(BR2_STATIC_LIBS),y)
 MESA3D_ETNA_VIV_CONF_OPTS += --enable-static --disable-shared
 else
 MESA3D_ETNA_VIV_CONF_OPTS += --disable-static --enable-shared
