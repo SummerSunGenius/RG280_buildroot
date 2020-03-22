@@ -158,7 +158,7 @@ LINUX_POST_DOWNLOAD_HOOKS += LINUX_DOWNLOAD_PATCHES
 define LINUX_APPLY_PATCHES
 	for p in $(LINUX_PATCHES) ; do \
 		if echo $$p | grep -q -E "^ftp://|^http://" ; then \
-			support/scripts/apply-patches.sh $(@D) $(DL_DIR) `basename $$p` ; \
+			support/scripts/apply-patches.sh $(@D) $(LINUX_DL_DIR) `basename $$p` ; \
 		elif test -d $$p ; then \
 			support/scripts/apply-patches.sh $(@D) $$p linux-\*.patch ; \
 		else \
