@@ -4,16 +4,12 @@
 #
 ################################################################################
 
-ZIC_VERSION = 2014d
+ZIC_VERSION = 2019c
 ZIC_SOURCE = tzcode$(ZIC_VERSION).tar.gz
-ZIC_SITE = ftp://ftp.iana.org/tz/releases
+ZIC_SITE = https://www.iana.org/time-zones/repository/releases
+ZIC_STRIP_COMPONENTS = 0
 ZIC_LICENSE = Public domain
-
-# Don't strip any path components during extraction.
-define HOST_ZIC_EXTRACT_CMDS
-	gzip -d -c $(DL_DIR)/$(ZIC_SOURCE) \
-		| $(TAR) --strip-components=0 -C $(@D) -xf -
-endef
+ZIC_LICENSE_FILES = LICENSE
 
 define HOST_ZIC_BUILD_CMDS
 	$(HOST_MAKE_ENV) $(MAKE) -C $(@D) zic
