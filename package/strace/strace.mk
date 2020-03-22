@@ -9,29 +9,29 @@ STRACE_SOURCE = strace-$(STRACE_VERSION).tar.xz
 STRACE_SITE = https://strace.io/files/$(STRACE_VERSION)
 STRACE_LICENSE = LGPL-2.1+
 STRACE_LICENSE_FILES = COPYING LGPL-2.1-or-later
-STRACE_CONF_OPT = --enable-mpers=check
+STRACE_CONF_OPTS = --enable-mpers=check
 
 # strace bundle some kernel headers to build libmpers, this mixes userspace
 # headers and kernel headers which break the build with musl.
 # The stddef.h from gcc is used instead of the one from musl.
 ifeq ($(BR2_TOOLCHAIN_USES_MUSL),y)
-STRACE_CONF_OPT += st_cv_m32_mpers=no \
+STRACE_CONF_OPTS += st_cv_m32_mpers=no \
 	st_cv_mx32_mpers=no
 endif
 
 ifeq ($(BR2_PACKAGE_LIBUNWIND),y)
 STRACE_DEPENDENCIES += libunwind
-STRACE_CONF_OPT += --with-libunwind
+STRACE_CONF_OPTS += --with-libunwind
 else
-STRACE_CONF_OPT += --without-libunwind
+STRACE_CONF_OPTS += --without-libunwind
 endif
 
 # Demangling symbols in stack trace needs libunwind and libiberty.
 ifeq ($(BR2_PACKAGE_BINUTILS)$(BR2_PACKAGE_LIBUNWIND),yy)
 STRACE_DEPENDENCIES += binutils
-STRACE_CONF_OPT += --with-libiberty=check
+STRACE_CONF_OPTS += --with-libiberty=check
 else
-STRACE_CONF_OPT += --without-libiberty
+STRACE_CONF_OPTS += --without-libiberty
 endif
 
 ifeq ($(BR2_PACKAGE_PERL),)

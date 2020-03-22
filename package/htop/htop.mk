@@ -13,15 +13,15 @@ HTOP_LICENSE = GPL-2.0
 HTOP_LICENSE_FILES = COPYING
 
 ifeq ($(BR2_PACKAGE_NCURSES_WCHAR),y)
-HTOP_CONF_OPT += --enable-unicode
+HTOP_CONF_OPTS += --enable-unicode
 else
-HTOP_CONF_OPT += --disable-unicode
+HTOP_CONF_OPTS += --disable-unicode
 endif
 
 # ARC uses an old uClibc that needs dladdr() for backtrace support,
 # which doesn't work for static only scenario, so as a workaround, we
 # pretend that execinfo.h is not available.
-ifeq ($(BR2_arc)$(BR2_PREFER_STATIC_LIB),yy)
+ifeq ($(BR2_arc)$(BR2_STATIC_LIBS),yy)
 HTOP_CONF_ENV += ac_cv_header_execinfo_h=no
 endif
 

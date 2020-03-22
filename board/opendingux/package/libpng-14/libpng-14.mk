@@ -15,7 +15,7 @@ LIBPNG_14_DEPENDENCIES = host-pkgconf zlib
 LIBPNG_14_CONFIG_SCRIPTS = libpng$(LIBPNG_14_SERIES)-config libpng-config
 
 # There can be only one version of the static library and we want it to be the newest libjpeg
-LIBPNG_14_CONF_OPT = --disable-static
+LIBPNG_14_CONF_OPTS = --disable-static
 
 $(eval $(autotools-package))
 $(eval $(host-autotools-package))

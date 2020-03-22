@@ -9,17 +9,17 @@ NE10_SITE = $(call github,projectNe10,Ne10,$(NE10_VERSION))
 NE10_LICENSE = BSD-3c or Apache-2.0
 NE10_LICENSE_FILES = doc/LICENSE
 
-NE10_CONF_OPT = -DGNULINUX_PLATFORM=ON
+NE10_CONF_OPTS = -DGNULINUX_PLATFORM=ON
 
-ifeq ($(BR2_PREFER_STATIC_LIB),)
-NE10_CONF_OPT += \
+ifeq ($(BR2_STATIC_LIBS),)
+NE10_CONF_OPTS += \
 	-DNE10_BUILD_SHARED=ON
 endif
 
 # The package does not have any install target, so have to provide
 # INSTALL_STAGING_CMDS and INSTALL_TARGET_CMDS.
 
-ifeq ($(BR2_PREFER_STATIC_LIB),)
+ifeq ($(BR2_STATIC_LIBS),)
 define NE10_INSTALL_STAGING_SHARED_LIB
 	cp -dpf $(@D)/modules/libNE10*.so* $(STAGING_DIR)/usr/lib/
 endef

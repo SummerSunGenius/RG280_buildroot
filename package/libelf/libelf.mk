@@ -16,7 +16,7 @@ LIBELF_CONF_ENV = libelf_cv_working_memmove=yes \
 		mr_cv_target_elf=yes \
 		libelf_64bit=yes
 
-LIBELF_CONF_OPT = --disable-sanity-checks \
+LIBELF_CONF_OPTS = --disable-sanity-checks \
 		$(if $(BR2_ENABLE_DEBUG),--enable-debug,--disable-debug) \
 		$(if $(BR2_LARGEFILE),--enable-elf64)
 

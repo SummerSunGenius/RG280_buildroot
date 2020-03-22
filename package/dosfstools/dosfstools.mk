@@ -9,18 +9,18 @@ DOSFSTOOLS_SOURCE = dosfstools-$(DOSFSTOOLS_VERSION).tar.xz
 DOSFSTOOLS_SITE = https://github.com/dosfstools/dosfstools/releases/download/v$(DOSFSTOOLS_VERSION)
 DOSFSTOOLS_LICENSE = GPL-3.0+
 DOSFSTOOLS_LICENSE_FILES = COPYING
-DOSFSTOOLS_CONF_OPT = --enable-compat-symlinks --exec-prefix=/
-HOST_DOSFSTOOLS_CONF_OPT = --enable-compat-symlinks
+DOSFSTOOLS_CONF_OPTS = --enable-compat-symlinks --exec-prefix=/
+HOST_DOSFSTOOLS_CONF_OPTS = --enable-compat-symlinks
 
 ifeq ($(BR2_PACKAGE_HAS_UDEV),y)
-DOSFSTOOLS_CONF_OPT += --with-udev
+DOSFSTOOLS_CONF_OPTS += --with-udev
 DOSFSTOOLS_DEPENDENCIES += udev
 else
-DOSFSTOOLS_CONF_OPT += --without-udev
+DOSFSTOOLS_CONF_OPTS += --without-udev
 endif
 
 ifneq ($(BR2_ENABLE_LOCALE),y)
-DOSFSTOOLS_CONF_OPT += LIBS="-liconv"
+DOSFSTOOLS_CONF_OPTS += LIBS="-liconv"
 DOSFSTOOLS_DEPENDENCIES += libiconv
 endif
 

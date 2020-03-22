@@ -14,11 +14,11 @@ URG_INSTALL_STAGING = YES
 
 ifeq ($(BR2_PACKAGE_SDL)$(BR2_PACKAGE_SDL_NET),yy)
 URG_DEPENDENCIES += sdl sdl_net
-URG_CONF_OPT += \
+URG_CONF_OPTS += \
 	--with-sdl-prefix=$(STAGING_DIR)/usr \
 	--with-sdl-exec-prefix=$(STAGING_DIR)/usr
 else
-URG_CONF_OPT = --without-sdl
+URG_CONF_OPTS = --without-sdl
 URG_CONF_ENV += ac_cv_path_SDL_CONFIG=""
 endif
 

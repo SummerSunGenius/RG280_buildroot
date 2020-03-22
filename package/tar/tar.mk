@@ -9,22 +9,22 @@ TAR_SOURCE = tar-$(TAR_VERSION).tar.xz
 TAR_SITE = $(BR2_GNU_MIRROR)/tar
 # busybox installs in /bin, so we need tar to install as well in /bin
 # so that we don't end up with two different tar
-TAR_CONF_OPT = --exec-prefix=/
+TAR_CONF_OPTS = --exec-prefix=/
 TAR_LICENSE = GPL-3.0+
 TAR_LICENSE_FILES = COPYING
 
 ifeq ($(BR2_PACKAGE_ACL),y)
 TAR_DEPENDENCIES += acl
-TAR_CONF_OPT += --with-posix-acls
+TAR_CONF_OPTS += --with-posix-acls
 else
-TAR_CONF_OPT += --without-posix-acls
+TAR_CONF_OPTS += --without-posix-acls
 endif
 
 ifeq ($(BR2_PACKAGE_ATTR),y)
 TAR_DEPENDENCIES += attr
-TAR_CONF_OPT += --with-xattrs
+TAR_CONF_OPTS += --with-xattrs
 else
-TAR_CONF_OPT += --without-xattrs
+TAR_CONF_OPTS += --without-xattrs
 endif
 
 $(eval $(autotools-package))
@@ -45,7 +45,7 @@ define HOST_TAR_EXTRACT_CMDS
 	rmdir $(@D)/tar-$(HOST_TAR_VERSION)
 endef
 
-HOST_TAR_CONF_OPT = --without-selinux
+HOST_TAR_CONF_OPTS = --without-selinux
 
 # we are built before ccache
 HOST_TAR_CONF_ENV = \

@@ -18,7 +18,7 @@ UTIL_LINUX_AUTORECONF = YES
 UTIL_LINUX_INSTALL_STAGING = YES
 UTIL_LINUX_DEPENDENCIES = host-pkgconf
 UTIL_LINUX_CONF_ENV = scanf_cv_type_modifier=no
-UTIL_LINUX_CONF_OPT += \
+UTIL_LINUX_CONF_OPTS += \
 	--disable-rpath \
 	--disable-makeinstall-chown \
 	--disable-bash-completion
@@ -35,7 +35,7 @@ endif
 ifeq ($(BR2_PACKAGE_NCURSES),y)
 UTIL_LINUX_DEPENDENCIES += ncurses
 else
-UTIL_LINUX_CONF_OPT += --without-ncurses
+UTIL_LINUX_CONF_OPTS += --without-ncurses
 endif
 
 ifeq ($(BR2_NEEDS_GETTEXT_IF_LOCALE),y)
@@ -54,7 +54,7 @@ UTIL_LINUX_DEPENDENCIES += $(if $(BR2_PACKAGE_ZLIB),zlib)
 UTIL_LINUX_DEPENDENCIES += $(if $(BR2_PACKAGE_LINUX_PAM),linux-pam)
 
 # Disable/Enable utilities
-UTIL_LINUX_CONF_OPT += \
+UTIL_LINUX_CONF_OPTS += \
 	$(if $(BR2_PACKAGE_UTIL_LINUX_AGETTY),--enable-agetty,--disable-agetty) \
 	$(if $(BR2_PACKAGE_UTIL_LINUX_ARCH),--enable-arch,--disable-arch) \
 	$(if $(BR2_PACKAGE_UTIL_LINUX_CHFN_CHSH),--enable-chfn-chsh,--disable-chfn-chsh) \
@@ -88,7 +88,7 @@ UTIL_LINUX_CONF_OPT += \
 
 # In the host version of util-linux, we so far only require libuuid,
 # and none of the util-linux utilities, so we disable all of them.
-HOST_UTIL_LINUX_CONF_OPT += \
+HOST_UTIL_LINUX_CONF_OPTS += \
 	--enable-libuuid \
 	--disable-agetty --disable-cramfs --disable-fallocate \
 	--disable-fsck --disable-libblkid --disable-libmount \

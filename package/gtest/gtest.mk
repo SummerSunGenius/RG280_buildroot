@@ -35,16 +35,16 @@ HOST_GTEST_GMOCK_PYTHONPATH = \
 #
 # For further details, refer to the explaination given in the README file from
 # the gtest sources.
-GTEST_CONF_OPT = -DBUILD_SHARED_LIBS=OFF
+GTEST_CONF_OPTS = -DBUILD_SHARED_LIBS=OFF
 
 # Ensure that GTest is compiled with -fPIC to allow linking the static
 # libraries with dynamically linked programs. This is not a requirement
 # for most architectures but is mandatory for ARM.
 ifeq ($(BR2_STATIC_LIBS),)
-GTEST_CONF_OPT += -DCMAKE_POSITION_INDEPENDENT_CODE=ON
+GTEST_CONF_OPTS += -DCMAKE_POSITION_INDEPENDENT_CODE=ON
 endif
 
-GTEST_CONF_OPT += -DBUILD_GTEST=ON
+GTEST_CONF_OPTS += -DBUILD_GTEST=ON
 
 # Generate the gtest-config script manually, since the CMake build system is
 # not doing it.
@@ -65,7 +65,7 @@ endef
 GTEST_POST_INSTALL_STAGING_HOOKS = GTEST_INSTALL_GTEST_CONFIG
 
 ifeq ($(BR2_PACKAGE_GTEST_GMOCK),y)
-GTEST_CONF_OPT += -DBUILD_GMOCK=ON
+GTEST_CONF_OPTS += -DBUILD_GMOCK=ON
 
 # Generate the gmock-config script manually, since the CMake build system is
 # not doing it.
@@ -85,7 +85,7 @@ define GTEST_INSTALL_GMOCK_CONFIG
 endef
 GTEST_POST_INSTALL_STAGING_HOOKS += GTEST_INSTALL_GMOCK_CONFIG
 else
-GTEST_CONF_OPT += -DBUILD_GMOCK=OFF
+GTEST_CONF_OPTS += -DBUILD_GMOCK=OFF
 endif
 
 define HOST_GTEST_INSTALL_CMDS

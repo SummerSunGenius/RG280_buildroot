@@ -30,7 +30,7 @@ define LIBJSON_EXTRACT_CMDS
 endef
 
 define LIBJSON_BUILD_CMDS
-	mkdir -p $(@D)/Objects_$(if $(BR2_PREFER_STATIC_LIB),static,shared) \
+	mkdir -p $(@D)/Objects_$(if $(BR2_STATIC_LIBS),static,shared) \
 		$(@D)/_internal/Source/Dependencies
 	$(TARGET_MAKE_ENV) $(MAKE) $(TARGET_CONFIGURE_OPTS) \
 		$(LIBJSON_MAKE_OPTS) -C $(@D)

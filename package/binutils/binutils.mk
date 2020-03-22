@@ -44,23 +44,23 @@ endif
 # When binutils sources are fetched from the binutils-gdb repository,
 # they also contain the gdb sources, but gdb shouldn't be built, so we
 # disable it.
-BINUTILS_DISABLE_GDB_CONF_OPT = \
+BINUTILS_DISABLE_GDB_CONF_OPTS = \
 	--disable-sim \
 	--disable-gdb
 
 # We need to specify host & target to avoid breaking ARM EABI
-BINUTILS_CONF_OPT = \
+BINUTILS_CONF_OPTS = \
 	--disable-multilib \
 	--disable-werror \
 	--host=$(GNU_TARGET_NAME) \
 	--target=$(GNU_TARGET_NAME) \
 	--enable-install-libiberty \
 	--enable-build-warnings=no \
-	$(BINUTILS_DISABLE_GDB_CONF_OPT) \
+	$(BINUTILS_DISABLE_GDB_CONF_OPTS) \
 	$(BINUTILS_EXTRA_CONFIG_OPTIONS)
 
-ifeq ($(BR2_PREFER_STATIC_LIB),y)
-BINUTILS_CONF_OPT += --disable-plugins
+ifeq ($(BR2_STATIC_LIBS),y)
+BINUTILS_CONF_OPTS += --disable-plugins
 endif
 
 # Don't build documentation. It takes up extra space / build time,
@@ -85,7 +85,7 @@ endif
 
 # "host" binutils should actually be "cross"
 # We just keep the convention of "host utility" for now
-HOST_BINUTILS_CONF_OPT = \
+HOST_BINUTILS_CONF_OPTS = \
 	--disable-multilib \
 	--disable-werror \
 	--target=$(GNU_TARGET_NAME) \
@@ -93,7 +93,7 @@ HOST_BINUTILS_CONF_OPT = \
 	--enable-static \
 	--with-sysroot=$(STAGING_DIR) \
 	--enable-poison-system-directories \
-	$(BINUTILS_DISABLE_GDB_CONF_OPT) \
+	$(BINUTILS_DISABLE_GDB_CONF_OPTS) \
 	$(BINUTILS_EXTRA_CONFIG_OPTIONS)
 
 # binutils run configure script of subdirs at make time, so ensure
@@ -127,7 +127,7 @@ HOST_BINUTILS_EXTRA_DOWNLOADS += $(ARCH_XTENSA_OVERLAY_URL)
 endif
 
 ifeq ($(BR2_BINUTILS_ENABLE_LTO),y)
-HOST_BINUTILS_CONF_OPT += --enable-plugins --enable-lto
+HOST_BINUTILS_CONF_OPTS += --enable-plugins --enable-lto
 endif
 
 # Hardlinks between binaries in different directories cause a problem

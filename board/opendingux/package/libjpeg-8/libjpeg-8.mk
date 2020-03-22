@@ -18,7 +18,7 @@ endef
 LIBJPEG_8_POST_INSTALL_TARGET_HOOKS += LIBJPEG_8_REMOVE_USELESS_TOOLS
 
 # There can be only one version of the static library and we want it to be the newest libjpeg
-LIBJPEG_8_CONF_OPT = --disable-static
+LIBJPEG_8_CONF_OPTS = --disable-static
 
 $(eval $(autotools-package))
 $(eval $(host-autotools-package))

@@ -12,7 +12,7 @@ NCURSES_LICENSE = MIT with advertising clause
 NCURSES_LICENSE_FILES = COPYING
 NCURSES_CONFIG_SCRIPTS = ncurses$(NCURSES_LIB_SUFFIX)6-config
 
-NCURSES_CONF_OPT = \
+NCURSES_CONF_OPTS = \
 	--without-cxx \
 	--without-cxx-binding \
 	--without-ada \
@@ -30,18 +30,18 @@ NCURSES_CONF_OPT = \
 	$(if $(BR2_PACKAGE_NCURSES_TARGET_PROGS),,--without-progs) \
 	--without-manpages
 
-ifeq ($(BR2_PREFER_STATIC_LIB),y)
-NCURSES_CONF_OPT += --without-shared --with-normal
+ifeq ($(BR2_STATIC_LIBS),y)
+NCURSES_CONF_OPTS += --without-shared --with-normal
 else
-NCURSES_CONF_OPT += --with-shared --without-normal
+NCURSES_CONF_OPTS += --with-shared --without-normal
 endif
 
 # configure can't find the soname for libgpm when cross compiling
 ifeq ($(BR2_PACKAGE_GPM),y)
-NCURSES_CONF_OPT += --with-gpm=libgpm.so.2
+NCURSES_CONF_OPTS += --with-gpm=libgpm.so.2
 NCURSES_DEPENDENCIES += gpm
 else
-NCURSES_CONF_OPT += --without-gpm
+NCURSES_CONF_OPTS += --without-gpm
 endif
 
 NCURSES_TERMINFO_FILES = \
@@ -66,7 +66,7 @@ NCURSES_TERMINFO_FILES = \
 	$(call qstrip,$(BR2_PACKAGE_NCURSES_ADDITIONAL_TERMINFO))
 
 ifeq ($(BR2_PACKAGE_NCURSES_WCHAR),y)
-NCURSES_CONF_OPT += --enable-widec
+NCURSES_CONF_OPTS += --enable-widec
 NCURSES_LIB_SUFFIX = w
 NCURSES_LIBS = ncurses menu panel form
 
@@ -101,11 +101,11 @@ endef
 NCURSES_LINK_STAGING_CONFIG = $(call NCURSES_LINK_CONFIG)
 
 NCURSES_LINK_STAGING_LIBS = \
-	$(if $(BR2_PREFER_STATIC_LIB),$(call NCURSES_LINK_LIBS_STATIC),$(call NCURSES_LINK_LIBS_SHARED))
+	$(if $(BR2_STATIC_LIBS),$(call NCURSES_LINK_LIBS_STATIC),$(call NCURSES_LINK_LIBS_SHARED))
 
 NCURSES_LINK_STAGING_PC = $(call NCURSES_LINK_PC)
 
-NCURSES_CONF_OPT += --enable-ext-colors
+NCURSES_CONF_OPTS += --enable-ext-colors
 
 NCURSES_POST_INSTALL_STAGING_HOOKS += NCURSES_LINK_STAGING_CONFIG
 NCURSES_POST_INSTALL_STAGING_HOOKS += NCURSES_LINK_STAGING_LIBS
@@ -114,7 +114,7 @@ NCURSES_POST_INSTALL_STAGING_HOOKS += NCURSES_LINK_STAGING_PC
 endif # BR2_PACKAGE_NCURSES_WCHAR
 
 ifneq ($(BR2_ENABLE_DEBUG),y)
-NCURSES_CONF_OPT += --without-debug
+NCURSES_CONF_OPTS += --without-debug
 endif
 
 # ncurses breaks with parallel build, but takes quite a while to
@@ -151,7 +151,7 @@ define HOST_NCURSES_BUILD_CMDS
 	$(HOST_MAKE_ENV) $(MAKE) -C $(@D)/progs tic
 endef
 
-HOST_NCURSES_CONF_OPT = \
+HOST_NCURSES_CONF_OPTS = \
 	--with-shared \
 	--without-gpm \
 	--without-manpages \

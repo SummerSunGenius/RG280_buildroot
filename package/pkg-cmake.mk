@@ -52,7 +52,7 @@ endif
 define inner-cmake-package
 
 $(2)_CONF_ENV			?=
-$(2)_CONF_OPT			?=
+$(2)_CONF_OPTS			?=
 $(2)_MAKE			?= $$(MAKE)
 $(2)_MAKE_ENV			?=
 $(2)_MAKE_OPT			?=
@@ -104,9 +104,9 @@ define $(2)_CONFIGURE_CMDS
 		-DBUILD_TEST=OFF \
 		-DBUILD_TESTS=OFF \
 		-DBUILD_TESTING=OFF \
-		-DBUILD_SHARED_LIBS=$$(if $$(BR2_PREFER_STATIC_LIB),OFF,ON) \
+		-DBUILD_SHARED_LIBS=$$(if $$(BR2_STATIC_LIBS),OFF,ON) \
 		$$(CMAKE_QUIET) \
-		$$($$(PKG)_CONF_OPT) \
+		$$($$(PKG)_CONF_OPTS) \
 	)
 endef
 else
@@ -149,7 +149,7 @@ define $(2)_CONFIGURE_CMDS
 		-DBUILD_TESTS=OFF \
 		-DBUILD_TESTING=OFF \
 		$$(CMAKE_QUIET) \
-		$$($$(PKG)_CONF_OPT) \
+		$$($$(PKG)_CONF_OPTS) \
 	)
 endef
 endif
