@@ -23,6 +23,9 @@ rm -rf output/images/sdcard.img
 
 # Copy OPKs
 mkdir -p output/images/apps_partition/apps/
+if [ -d output/images/local_pack/ ]; then
+	cp output/images/local_pack/*.opk output/images/apps_partition/apps/
+fi
 cp output/images/opks/*.opk output/images/apps_partition/apps/
 
 # Clear output/images-tmp
