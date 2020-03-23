@@ -16,11 +16,21 @@ error_quit() {
 	exit 1
 }
 
-if [ ! -f "$KERNEL" -o ! -f "$ROOTFS" -o ! -f "$MODULES_FS" \
-	-o ! -f "$BOOTLOADER" -o ! -f "${KERNEL}.sha1" -o ! -f "${ROOTFS}.sha1" \
-	-o ! -f "${MODULES_FS}.sha1" -o ! -f "${BOOTLOADER}.sha1" ] ; then
+# Check that all the files are present
+missing_files=""
+for path in "$KERNEL" "${KERNEL}.sha1" \
+	"$ROOTFS" "${ROOTFS}.sha1" \
+	"$MODULES_FS" "${MODULES_FS}.sha1" \
+	"$BOOTLOADER" "${BOOTLOADER}.sha1"; do
+	if [ ! -f "$path" ]; then
+		missing_files="$missing_files $path"
+	fi
+done
+if [ ! -z "$missing_files" ]; then
 	DIALOGRC="/tmp/dialog_err.rc" \
-		dialog --msgbox 'ERROR!\n\nUnable to generate image: required files are missing.' 9 34
+		dialog --msgbox \
+			"ERROR!\n\nUnable to generate image: required files are missing:\n$missing_files" \
+			9 34
 	error_quit
 fi
 
