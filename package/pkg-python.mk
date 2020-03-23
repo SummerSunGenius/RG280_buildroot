@@ -20,6 +20,10 @@
 #
 ################################################################################
 
+define PKG_PYTHON_SYSCONFIGDATA_NAME
+$(basename $(notdir $(wildcard $(STAGING_DIR)/usr/lib/python$(PYTHON3_VERSION_MAJOR)/_sysconfigdata__linux_*.py)))
+endef
+
 # Target distutils-based packages
 PKG_PYTHON_DISTUTILS_ENV = \
 	PATH=$(BR_PATH) \
@@ -54,23 +58,26 @@ HOST_PKG_PYTHON_DISTUTILS_INSTALL_OPT = \
 
 # Target setuptools-based packages
 PKG_PYTHON_SETUPTOOLS_ENV = \
+	_PYTHON_SYSCONFIGDATA_NAME="$(PKG_PYTHON_SYSCONFIGDATA_NAME)" \
 	PATH=$(BR_PATH) \
+	$(TARGET_CONFIGURE_OPTS) \
 	PYTHONPATH="$(if $(BR2_PACKAGE_PYTHON3),$(PYTHON3_PATH),$(PYTHON_PATH))" \
+	PYTHONNOUSERSITE=1 \
 	_python_sysroot=$(STAGING_DIR) \
 	_python_prefix=/usr \
 	_python_exec_prefix=/usr
 
 PKG_PYTHON_SETUPTOOLS_INSTALL_TARGET_OPT = \
-	--prefix=$(TARGET_DIR)/usr \
+	--prefix=/usr \
 	--executable=/usr/bin/python \
 	--single-version-externally-managed \
-	--root=/
+	--root=$(TARGET_DIR)
 
 PKG_PYTHON_SETUPTOOLS_INSTALL_STAGING_OPT = \
-	--prefix=$(STAGING_DIR)/usr \
+	--prefix=/usr \
 	--executable=/usr/bin/python \
 	--single-version-externally-managed \
-	--root=/
+	--root=$(STAGING_DIR)
 
 # Host setuptools-based packages
 HOST_PKG_PYTHON_SETUPTOOLS_ENV = \
@@ -79,8 +86,8 @@ HOST_PKG_PYTHON_SETUPTOOLS_ENV = \
 	$(HOST_CONFIGURE_OPTS)
 
 HOST_PKG_PYTHON_SETUPTOOLS_INSTALL_OPT = \
-	--prefix=$(HOST_DIR)/usr \
-	--root=/ \
+	--prefix=/usr \
+	--root=$(HOST_DIR) \
 	--single-version-externally-managed
 
 ################################################################################
