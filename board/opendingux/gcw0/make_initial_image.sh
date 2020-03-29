@@ -12,7 +12,7 @@ make world mininit host-od-imager
 # Data image (OPKs):
 cd output/images
 mkdir -p od-imager/apps/
-rm od-imager/apps/* || true
+rm -f od-imager/apps/*
 if [ -d ../../dl/od_local_pack/ ]; then
 	cp ../../dl/od_local_pack/*.opk od-imager/apps/
 fi
