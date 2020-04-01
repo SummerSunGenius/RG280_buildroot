@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-DINGUX_COMMANDER_VERSION = stable
+DINGUX_COMMANDER_VERSION = a874e6721
 DINGUX_COMMANDER_SITE = $(call github,glebm,rs97-commander,$(DINGUX_COMMANDER_VERSION))
 DINGUX_COMMANDER_DEPENDENCIES = sdl sdl_image freetype
 
