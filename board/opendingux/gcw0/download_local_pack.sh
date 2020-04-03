@@ -165,7 +165,7 @@ dl "${RGH_OD_REPO}/Games%20%26%20Ports/NXEngine.opk"
 dl "${RGH_OD_REPO}/Games%20%26%20Ports/Liero.opk"
 
 # Slitherlink
-# TODO: http://beyondds.free.fr/index.php?Dingoo-slitherlink
+dl https://github.com/glebm/od-slitherlink/releases/latest/download/slitherlink-rg350.opk
 
 # Built as part of the buildroot
 # * BlockAttack
