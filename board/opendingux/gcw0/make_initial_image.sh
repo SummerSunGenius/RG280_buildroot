@@ -46,3 +46,10 @@ echo 'SD card image created in:'
 echo output/images/od-imager/images/sd_image.bin
 echo Size:
 du -sh output/images/od-imager/images/sd_image.bin
+
+echo 'Renaming and compressing...'
+NAME="rg350-$(date +'%Y-%m-%d')$(support/scripts/setlocalversion)"
+cp output/images/od-imager/images/sd_image.bin "output/images/${NAME}.bin"
+zip output/images/${NAME} "output/images/${NAME}.bin"
+rm "output/images/${NAME}.bin"
+du -sh "output/images/${NAME}.zip"
