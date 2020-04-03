@@ -158,11 +158,8 @@ dl "${RGH_OD_REPO}/Games%20%26%20Ports/Blockrage.opk"
 # Mr. Drillux
 dl https://github.com/jbanes/rs97-mrdrillux/releases/latest/download/mrdrillux.opk
 
-# NXEngine
+# Cave Story
 dl "${RGH_OD_REPO}/Games%20%26%20Ports/NXEngine.opk"
-
-# Liero
-dl "${RGH_OD_REPO}/Games%20%26%20Ports/Liero.opk"
 
 # Slitherlink
 dl https://github.com/glebm/od-slitherlink/releases/latest/download/slitherlink-rg350.opk
