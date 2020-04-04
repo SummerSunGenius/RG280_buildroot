@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-DINGUX_COMMANDER_VERSION = 560f8d3
+DINGUX_COMMANDER_VERSION = 2020-04-04
 DINGUX_COMMANDER_SITE = $(call github,glebm,rs97-commander,$(DINGUX_COMMANDER_VERSION))
 DINGUX_COMMANDER_DEPENDENCIES = sdl sdl_gfx sdl_image sdl_ttf
 
